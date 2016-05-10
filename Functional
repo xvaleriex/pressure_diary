@@ -1,17 +1,22 @@
+# from Structure import
 import Structure
 from Structure import *
 from Menu import *
+from Serialize import Serialize
+
+
+# from   cfgparser import *
 
 def showAllRecords():
     diary = getAllRecords()
     if (len(diary) == 0):
-        show_tip ("Error! Diary is empty")
+        show_tip("Error! Diary is empty")
     else:
         for i in diary:
             displayDayInfo(i)
-            show_tip ("------------------------")
+            show_tip("------------------------")
 
-loading_f()
+
 Main_menu()
 while True:
     key = user_input()
@@ -19,44 +24,39 @@ while True:
         showAllRecords()
         Main_menu()
     elif key == "2":
-        show_tip ("Please enter data for the day")
+        show_tip("Please enter data for the day")
         while True:
-            show_tip ("Day (in dd): ")
+            show_tip("Day (in dd): ")
             day = user_input()
-            show_tip ("Month (in mm): ")
+            show_tip("Month (in mm): ")
             month = user_input()
-            show_tip ("Year (in yyyy): ")
+            show_tip("Year (in yyyy): ")
             year = user_input()
-            if ((is_date_valid(day, month)) and (is_year_valid(year))):
+            if ((is_date_valid(day, month)) or (is_year_valid(year))):
                 break
-            show_tip("Uncorrect date. Try again")
         while True:
-            show_tip ("Part of the day (morning, evening): ")
+            show_tip("Part of the day (morning, evening): ")
             times_of_day = user_input()
             if (is_time_valid(times_of_day)):
                 break
-            show_tip("Uncorrect time of day.")
 
         while True:
-            show_tip ("Diastolic pressure (value of 0 to 280): ")
+            show_tip("Diastolic pressure (value of 0 to 280): ")
             diastolic_pressure = user_input()
             if (is_valid_DPressure(diastolic_pressure)):
                 break
-            show_tip("Uncorrect diastolic pressure.")
 
         while True:
-            show_tip ("Systolic pressure (value of 0 to 280): ")
+            show_tip("Systolic pressure (value of 0 to 280): ")
             systolic_pressure = user_input()
             if (is_valid_SPressure(systolic_pressure)):
                 break
-            show_tip("Uncorrect systolic pressure.")
         while True:
-            show_tip ("Pulse (value of 0 to 200): ")
+            show_tip("Pulse (value of 0 to 200): ")
             pulse = user_input()
             if (is_pulse_norm(pulse)):
                 break
-            show_tip("Uncorrect pulse.")
-        CreateRecord(day,month,year, times_of_day, diastolic_pressure, systolic_pressure,pulse)
+        CreateRecord(day, month, year, times_of_day, diastolic_pressure, systolic_pressure, pulse)
 
         day = None
         month = None
@@ -66,25 +66,26 @@ while True:
         systolic_pressure = None
         pulse = None
         Main_menu()
-    elif key =="3":
+    elif key == "3":
         while True:
-            show_tip ("Enter date of day that you want to delete: ")
-            show_tip ("Day (in dd): ")
+            show_tip("Enter date of day that you want to delete: ")
+            show_tip("Day (in dd): ")
             day = user_input()
-            show_tip ("Month (in mm): ")
+            show_tip("Month (in mm): ")
             month = user_input()
-            show_tip ("Year (in yyyy): ")
+            show_tip("Year (in yyyy): ")
             year = user_input()
-            show_tip ("Part of the day (morning, evening): ")
+            show_tip("Part of the day (morning, evening): ")
             times_of_day = user_input()
             if ((is_time_valid(times_of_day)) or (is_date_valid(day, month))):
                 break
         for date in Structure.diary:
-            if ((date.day == day) and (date.month == month) and (date.year == year) and (date.times_of_day == times_of_day)):
+            if ((date.day == day) and (date.month == month) and (date.year == year) and (
+                date.times_of_day == times_of_day)):
                 Structure.diary.remove(date)
                 break
         else:
-            show_tip ("Error! Date not found")
+            show_tip("Error! Date not found")
         day = None
         month = None
         year = None
@@ -93,26 +94,27 @@ while True:
         Main_menu()
     elif key == "4":
         while True:
-            show_tip ("Enter date of record that you want to change: ")
-            show_tip ("Day (in dd): ")
+            show_tip("Enter date of record that you want to change: ")
+            show_tip("Day (in dd): ")
             day = user_input()
-            show_tip ("Month (in mm): ")
+            show_tip("Month (in mm): ")
             month = user_input()
-            show_tip ("Year (in yyyy): ")
+            show_tip("Year (in yyyy): ")
             year = user_input()
-            show_tip ("Part of the day (morning, evening): ")
+            show_tip("Part of the day (morning, evening): ")
             times_of_day = user_input()
             if ((is_time_valid(times_of_day)) or (is_date_valid(day, month))):
                 break
 
         for date in Structure.diary:
-            if ((date.day == day) and (date.month == month) and (date.year == year) and (date.times_of_day == times_of_day)):
+            if ((date.day == day) and (date.month == month) and (date.year == year) and (
+                date.times_of_day == times_of_day)):
                 Date_menu()
                 while True:
                     key = user_input()
                     if key == "1":
                         while True:
-                            show_tip ("Diastolic_pressure (value of 0 to 280): ")
+                            show_tip("Diastolic_pressure (value of 0 to 280): ")
                             diastolic_pressure = user_input()
                             if (is_valid_DPressure(diastolic_pressure)):
                                 break
@@ -121,7 +123,7 @@ while True:
                         diastolic_pressure = None
                     elif key == "2":
                         while True:
-                            show_tip ("Systolic pressure (value of 0 to 280): ")
+                            show_tip("Systolic pressure (value of 0 to 280): ")
                             systolic_pressure = user_input()
                             if (is_valid_SPressure(systolic_pressure)):
                                 break
@@ -130,7 +132,7 @@ while True:
                         systolic_pressure = None
                     elif key == "3":
                         while True:
-                            show_tip ("Pulse (value of 0 to 200): ")
+                            show_tip("Pulse (value of 0 to 200): ")
                             pulse = user_input()
                             if (is_pulse_norm(pulse)):
                                 break
@@ -143,29 +145,52 @@ while True:
 
                 break
         else:
-            show_tip ("Error! Date not found")
+            show_tip("Error! Date not found")
     elif key == "5":
         while True:
-            show_tip ("Enter date of record that you want to find: ")
-            show_tip ("Day (in dd): ")
+            show_tip("Enter date of record that you want to find: ")
+            show_tip("Day (in dd): ")
             day = user_input()
-            show_tip ("Month (in mm): ")
+            show_tip("Month (in mm): ")
             month = user_input()
-            show_tip ("Year (in yyyy): ")
+            show_tip("Year (in yyyy): ")
             year = user_input()
-            show_tip ("Part of the day (morning, evening): ")
+            show_tip("Part of the day (morning, evening): ")
             times_of_day = user_input()
             if ((is_time_valid(times_of_day)) or (is_date_valid(day, month))):
                 break
         for date in Structure.diary:
-            if ((date.day == day) and (date.month == month) and (date.year == year) and (date.times_of_day == times_of_day)):
+            if ((date.day == day) and (date.month == month) and (date.year == year) and (
+                date.times_of_day == times_of_day)):
                 displayDayInfo(date)
                 break
         else:
-            show_tip ("Error! Date not found")
+            show_tip("Error! Date not found")
+        Main_menu()
+    elif key == "7":
+        File_menu()
+        key1 = user_input()
+        temp = Structure.diary
+        data = Structure.change_serialization_file(key1)
+        Serialize.change_config(data[0], data[1])
+        if (key1 == "3"):
+            Serialize().dump(run(temp))
+        else  :
+            Serialize().dump(temp)
+
+
+
+        Main_menu()
+    elif key == "8":
+        File_menu()
+        key1 = user_input()
+
+        data = Structure.change_serialization_file(key1)
+        Serialize.change_config(data[0], data[1])
+        Serialize().load()
+
         Main_menu()
     elif key == "6":
-        show_tip ("Goodbye")
-        save()
-        break
+        show_tip("Goodbye")
 
+        break
