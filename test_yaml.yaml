@@ -1,0 +1,2 @@
+!!python/object:Structure.CalendarDay {day: 2, diastolic_pressure: 163, month: 3,
+  pulse: 89, systolic_pressure: 121, times_of_day: evening, year: 2009}
